@@ -4,7 +4,7 @@ defmodule Flaky.Mixfile do
   def project do
     [ app: :flaky,
       version: "0.0.5",
-      elixir: "~> 0.15.0",
+      elixir: "~> 0.15.0 or ~> 1.0.0",
       deps: deps ]
   end
 
@@ -14,7 +14,7 @@ defmodule Flaky.Mixfile do
       registered: [:flaky],
       mod: { Flaky, [] },
       applications: []
-  ]
+    ]
   end
 
   # Returns the list of dependencies in the format:

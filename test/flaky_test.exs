@@ -2,15 +2,14 @@ defmodule FlakyTest do
   use ExUnit.Case
 
   setup do
-    start = Flaky.Server.time
+    start = :os.timestamp
     flakes = Enum.map 1..10_000, fn(_) -> Flaky.generate(62) end
-    finish = Flaky.Server.time
+    finish = :os.timestamp
     {:ok, [flakes: flakes, start: start, finish: finish]}
   end
 
   test "flakes generated quickly", %{start: start, finish: finish} do
-    time = finish - start
-    IO.puts "Time to generate 10,000 flakes: #{time} milliseconds."
+    time = trunc(:timer.now_diff(finish, start) / 1_000)
     assert time <= 500
   end
 

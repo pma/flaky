@@ -30,14 +30,13 @@ defmodule Flaky.Server do
       nil -> flake
       _ ->
         <<number::integer-size(128)>> = flake
-        Flaky.I2l.to_list(number, base)
-        |> List.to_string
+        Flaky.I2l.to_list(number, base) |> List.to_string
     end
   end
 
-  def time do
+  defp time do
     {mega_seconds, seconds, micro_seconds} = :os.timestamp
-    1_000_000_000*mega_seconds + seconds*1_000 + :erlang.trunc(micro_seconds/1_000)
+    1_000_000_000*mega_seconds + seconds*1_000 + trunc(micro_seconds/1_000)
   end
 
   defp mac_address do
