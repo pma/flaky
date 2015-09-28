@@ -44,10 +44,10 @@ defmodule Flaky.Server do
 
     {iface, _} =
       Enum.find addresses, fn({_iface, params}) ->
-        :broadcast in params[:flags] &&
-        :multicast in params[:flags] &&
-        params[:hwaddr] &&
-        Enum.max(params[:hwaddr]) > 0
+        :broadcast in Dict.fetch!(params, :flags) &&
+        :multicast in Dict.fetch!(params, :flags) &&
+        Dict.fetch!(params, :hwaddr) &&
+        Enum.max(Dict.fetch!(params, :hwaddr)) > 0
       end
 
     proplist = :proplists.get_value(iface, addresses)
